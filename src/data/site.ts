@@ -103,7 +103,7 @@ export const products: Product[] = [
     slug: 'packaged-drinking-water',
     icon: 'bottle',
     pick: { hi: '500 मिली · 1 ली. · 2 ली.', en: '500 ml · 1 L · 2 L bottles' },
-    name: { hi: 'पैक्ड पीने का पानी', en: 'Packaged Drinking Water' },
+    name: { hi: 'पैक्ड पानी बोतल', en: 'Packaged Water Bottle' },
     short: {
       hi: '500 मिली, 1 ली. और 2 ली. की सीलबंद बोतलें — कार्यक्रम के लिए कस्टम लेबल भी।',
       en: 'Sealed 500 ml, 1 L and 2 L bottles, with custom labels for events.',
