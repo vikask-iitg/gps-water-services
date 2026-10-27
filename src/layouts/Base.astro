@@ -149,12 +149,11 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
       </div>
       <div>
         <h4><T hi="संपर्क" en="Contact" /></h4>
-        <p class="contact-line"><Icon name="pin" size={18} /> <T {...business.address} /></p>
-        <a class="phone-link phone-link-dark" href={`tel:${business.phoneRaw}`} data-track="call">
-          <span class="phone-ic"><Icon name="phone" size={20} /></span>
-          <span><small><T hi="कॉल / व्हाट्सऐप करें" en="Call / WhatsApp" /></small><strong>{business.phone}</strong></span>
-        </a>
-        <p class="contact-line"><Icon name="clock" size={18} /> <T {...business.hours} /></p>
+        <ul class="info-list info-list-dark">
+          <li><span class="info-ic"><Icon name="pin" size={18} /></span><span><small><T hi="पता" en="Address" /></small><T {...business.address} /></span></li>
+          <li><span class="info-ic"><Icon name="phone" size={18} /></span><span><small><T hi="कॉल / व्हाट्सऐप" en="Call / WhatsApp" /></small><a class="info-phone" href={`tel:${business.phoneRaw}`} data-track="call">{business.phone}</a></span></li>
+          <li><span class="info-ic"><Icon name="clock" size={18} /></span><span><small><T hi="समय" en="Timings" /></small><T {...business.hours} /></span></li>
+        </ul>
       </div>
     </div>
     <div class="wrap copy">© {new Date().getFullYear()} <T {...business.name} /></div>
