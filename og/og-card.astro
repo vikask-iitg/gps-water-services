@@ -25,11 +25,11 @@ import { business } from '../data/site';
     .brand small { font-size: 17px; color: #BCD6EC; }
     h1 { margin: 0; font: 700 60px/1.08 Poppins, sans-serif; letter-spacing: -.015em; color: #fff; }
     .tag { margin: 12px 0 20px; font: 600 32px/1.2 Poppins, sans-serif; background: linear-gradient(90deg, #7FE3F0, #2EC4D6 60%, #A8EEF7); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-    .chips span { font-size: 19px; font-weight: 500; padding: 7px 16px; border-radius: 99px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .chips span { font-size: 17px; font-weight: 500; padding: 6px 13px; border-radius: 99px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); }
     .cta { display: flex; gap: 14px; align-items: center; }
     .pill { display: inline-flex; align-items: center; gap: 10px; font: 700 24px/1 Inter, sans-serif; padding: 16px 26px; border-radius: 99px; }
-    .wa { background: #25D366; color: #06361A; box-shadow: 0 12px 28px -10px rgba(37,211,102,.7); }
+    .wa { color: #2A1600; background: linear-gradient(135deg, #FFD15C, #FFB020 50%, #FF9500); box-shadow: 0 12px 28px -10px rgba(255,149,0,.75), inset 0 1px 0 rgba(255,255,255,.45); }
     .call { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.35); }
 
     /* नीचे का पैनल */
@@ -62,10 +62,10 @@ import { business } from '../data/site';
       <div class="brand"><span class="mark">GPS</span><span><b>Water Services</b><small>Chilled R.O. Water · GPS Pure Ice</small></span></div>
       <h1>GPS Chilled R.O. Water</h1>
       <div class="tag">A symbol of purity and quality</div>
-      <div class="chips"><span>18 L RO Jars</span><span>Ice Slabs</span><span>Packaged Water</span><span>Water Pouches</span></div>
+      <div class="chips"><span>18 L RO Jars</span><span>Ice Slabs</span><span>Packaged Water Bottles</span><span>Water Pouches</span></div>
       <div class="cta">
-        <span class="pill wa"><Icon name="whatsapp" size={26} /> Order on WhatsApp</span>
-        <span class="pill call"><Icon name="phone" size={24} /> {business.phone}</span>
+        <span class="pill wa"><Icon name="truck" size={26} /> Order Now</span>
+        <span class="pill call"><Icon name="phone" size={24} /> Call {business.phone}</span>
       </div>
     </div>
     <div class="panel">
