@@ -136,7 +136,10 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
     <div class="wrap footer-grid">
       <div>
         <a href="/" class="logo logo-light"><span class="logo-mark">GPS</span><span class="logo-text"><strong><T {...business.name} /></strong><small><T {...business.tagline} /></small></span></a>
-        <p class="muted-light"><T hi={`संचालक: ${business.owner.hi}`} en={`Proprietor: ${business.owner.en}`} /></p>
+        <div class="owner-card">
+          <span class="owner-av" aria-hidden="true">{business.owner.en.split(' ').map((w) => w[0]).join('')}</span>
+          <span><small><T hi="संचालक" en="Proprietor" /></small><strong><T {...business.owner} /></strong></span>
+        </div>
         <p class="badge-cert"><Icon name="shield" size={18} /> {business.certificate}</p>
       </div>
       <div>
