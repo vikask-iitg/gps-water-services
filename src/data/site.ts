@@ -71,6 +71,32 @@ export const products: Product[] = [
     ],
   },
   {
+    slug: 'ice-slab',
+    icon: 'ice',
+    name: { hi: 'बर्फ़ सिल्ली (GPS Pure Ice)', en: 'Ice Slab (GPS Pure Ice)' },
+    short: {
+      hi: 'शुद्ध पानी से बनी बर्फ़ — सुबह जल्दी डिलीवरी।',
+      en: 'Ice made from purified water, with early-morning delivery.',
+    },
+    features: [
+      { hi: 'शुद्ध पानी से बनी', en: 'Made from purified water' },
+      { hi: 'सुबह जल्दी डिलीवरी', en: 'Early-morning delivery' },
+      { hi: 'कुटी बर्फ़ माँग पर', en: 'Crushed ice on request' },
+    ],
+    buyers: { hi: 'मछली/मीट, जूस ठेले, कैटरर', en: 'Fish/meat sellers, juice carts, caterers' },
+    orderWay: { hi: 'रोज़ का फ़िक्स ऑर्डर, बल्क कोटेशन', en: 'Fixed daily order, bulk quotation' },
+    uses: [
+      { hi: 'मछली और मीट को ताज़ा रखना', en: 'Keeping fish and meat fresh' },
+      { hi: 'जूस और गन्ना रस', en: 'Juice and sugarcane carts' },
+      { hi: 'कैटरिंग और समारोह', en: 'Catering and events' },
+    ],
+    sizes: [
+      { label: { hi: 'पूरी सिल्ली', en: 'Full slab' }, price: '', unit: { hi: 'प्रति सिल्ली', en: 'per slab' } },
+      { label: { hi: 'आधी सिल्ली', en: 'Half slab' }, price: '', unit: { hi: 'प्रति सिल्ली', en: 'per slab' } },
+      { label: { hi: 'कुटी बर्फ़ (माँग पर)', en: 'Crushed ice (on request)' }, price: '', unit: { hi: 'प्रति किलो', en: 'per kg' } },
+    ],
+  },
+  {
     slug: 'packaged-drinking-water',
     icon: 'bottle',
     name: { hi: 'पैक्ड पीने का पानी', en: 'Packaged Drinking Water' },
@@ -95,32 +121,6 @@ export const products: Product[] = [
       { label: { hi: '500 मिली बोतल', en: '500 ml bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
       { label: { hi: '1 ली. बोतल', en: '1 L bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
       { label: { hi: '2 ली. बोतल', en: '2 L bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
-    ],
-  },
-  {
-    slug: 'ice-slab',
-    icon: 'ice',
-    name: { hi: 'बर्फ़ सिल्ली (GPS Pure Ice)', en: 'Ice Slab (GPS Pure Ice)' },
-    short: {
-      hi: 'शुद्ध पानी से बनी बर्फ़ — सुबह जल्दी डिलीवरी।',
-      en: 'Ice made from purified water, with early-morning delivery.',
-    },
-    features: [
-      { hi: 'शुद्ध पानी से बनी', en: 'Made from purified water' },
-      { hi: 'सुबह जल्दी डिलीवरी', en: 'Early-morning delivery' },
-      { hi: 'कुटी बर्फ़ माँग पर', en: 'Crushed ice on request' },
-    ],
-    buyers: { hi: 'मछली/मीट, जूस ठेले, कैटरर', en: 'Fish/meat sellers, juice carts, caterers' },
-    orderWay: { hi: 'रोज़ का फ़िक्स ऑर्डर, बल्क कोटेशन', en: 'Fixed daily order, bulk quotation' },
-    uses: [
-      { hi: 'मछली और मीट को ताज़ा रखना', en: 'Keeping fish and meat fresh' },
-      { hi: 'जूस और गन्ना रस', en: 'Juice and sugarcane carts' },
-      { hi: 'कैटरिंग और समारोह', en: 'Catering and events' },
-    ],
-    sizes: [
-      { label: { hi: 'पूरी सिल्ली', en: 'Full slab' }, price: '', unit: { hi: 'प्रति सिल्ली', en: 'per slab' } },
-      { label: { hi: 'आधी सिल्ली', en: 'Half slab' }, price: '', unit: { hi: 'प्रति सिल्ली', en: 'per slab' } },
-      { label: { hi: 'कुटी बर्फ़ (माँग पर)', en: 'Crushed ice (on request)' }, price: '', unit: { hi: 'प्रति किलो', en: 'per kg' } },
     ],
   },
   {
