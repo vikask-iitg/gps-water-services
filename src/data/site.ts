@@ -33,6 +33,7 @@ export const business = {
 export type Product = {
   slug: string;
   icon: 'jar' | 'bottle' | 'ice' | 'pouch';
+  pick: Bi; // ड्रॉपडाउन में छोटा विवरण
   name: Bi;
   short: Bi;
   features: Bi[];
@@ -44,9 +45,10 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    slug: '20-litre-ro-jar',
+    slug: '18-litre-ro-jar',
     icon: 'jar',
-    name: { hi: '20 ली. RO चिल्ड वाटर जार', en: '20 L RO Chilled Water Jar' },
+    pick: { hi: 'रीफ़िल · नया जार', en: 'Refill · New jar' },
+    name: { hi: '18 ली. RO चिल्ड वाटर जार', en: '18 L RO Chilled Water Jar' },
     short: {
       hi: 'RO + UV शुद्ध, ठंडा पानी — सीलबंद ढक्कन के साथ घर-ऑफ़िस तक।',
       en: 'RO + UV purified, chilled water with a sealed cap, delivered to your door.',
@@ -65,7 +67,7 @@ export const products: Product[] = [
       { hi: 'होटल और ढाबे', en: 'Hotels and dhabas' },
     ],
     sizes: [
-      { label: { hi: 'नीला 20 ली. बोतल जार (रीफ़िल)', en: 'Blue 20 L bottle jar (refill)' }, price: '', unit: { hi: 'प्रति जार', en: 'per jar' } },
+      { label: { hi: 'नीला 18 ली. बोतल जार (रीफ़िल)', en: 'Blue 18 L bottle jar (refill)' }, price: '', unit: { hi: 'प्रति जार', en: 'per jar' } },
       { label: { hi: 'इंसुलेटेड चिल्ड कैंपर (रीफ़िल)', en: 'Insulated chilled camper (refill)' }, price: '', unit: { hi: 'प्रति जार', en: 'per jar' } },
       { label: { hi: 'नया जार (डिपॉज़िट)', en: 'New jar (deposit)' }, price: '', unit: { hi: 'एक बार', en: 'one-time' } },
     ],
@@ -73,6 +75,7 @@ export const products: Product[] = [
   {
     slug: 'ice-slab',
     icon: 'ice',
+    pick: { hi: 'पूरी · आधी · कुटी', en: 'Full · Half · Crushed' },
     name: { hi: 'बर्फ़ सिल्ली (GPS Pure Ice)', en: 'Ice Slab (GPS Pure Ice)' },
     short: {
       hi: 'शुद्ध पानी से बनी बर्फ़ — सुबह जल्दी डिलीवरी।',
@@ -99,10 +102,11 @@ export const products: Product[] = [
   {
     slug: 'packaged-drinking-water',
     icon: 'bottle',
+    pick: { hi: '500 मिली · 1 ली. · 2 ली.', en: '500 ml · 1 L · 2 L bottles' },
     name: { hi: 'पैक्ड पीने का पानी', en: 'Packaged Drinking Water' },
     short: {
-      hi: '250 मिली से 2 ली. तक सीलबंद बोतलें — कार्यक्रम के लिए कस्टम लेबल भी।',
-      en: 'Sealed bottles from 250 ml to 2 L, with custom labels for events.',
+      hi: '500 मिली, 1 ली. और 2 ली. की सीलबंद बोतलें — कार्यक्रम के लिए कस्टम लेबल भी।',
+      en: 'Sealed 500 ml, 1 L and 2 L bottles, with custom labels for events.',
     },
     features: [
       { hi: 'सीलबंद बोतल', en: 'Sealed bottles' },
@@ -117,7 +121,6 @@ export const products: Product[] = [
       { hi: 'ऑफ़िस मीटिंग', en: 'Office meetings' },
     ],
     sizes: [
-      { label: { hi: '250 मिली बोतल', en: '250 ml bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
       { label: { hi: '500 मिली बोतल', en: '500 ml bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
       { label: { hi: '1 ली. बोतल', en: '1 L bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
       { label: { hi: '2 ली. बोतल', en: '2 L bottle' }, price: '', unit: { hi: 'प्रति कार्टन', en: 'per carton' } },
@@ -126,6 +129,7 @@ export const products: Product[] = [
   {
     slug: 'water-pouch',
     icon: 'pouch',
+    pick: { hi: '200 / 250 मिली', en: '200 / 250 ml pouches' },
     name: { hi: 'पानी पाउच', en: 'Water Pouch' },
     short: {
       hi: 'सस्ता और सीलबंद — भीड़ वाले कार्यक्रमों के लिए बढ़िया।',

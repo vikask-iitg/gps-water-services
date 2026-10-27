@@ -2,6 +2,10 @@
 import Base from '../../layouts/Base.astro';
 import T from '../../components/T.astro';
 import Icon from '../../components/Icon.astro';
+import PouchArt from '../../components/PouchArt.astro';
+import IceArt from '../../components/IceArt.astro';
+import JarArt from '../../components/JarArt.astro';
+import BottleArt from '../../components/BottleArt.astro';
 import PageHero from '../../components/PageHero.astro';
 import WaButton from '../../components/WaButton.astro';
 import ProductCard from '../../components/ProductCard.astro';
@@ -29,7 +33,7 @@ const isJar = p.icon === 'jar';
       <div class="grid">
         <div class="card">
           <div style="display:flex;gap:16px;align-items:center;margin-bottom:12px">
-            <div class="p-icon lg"><Icon name={p.icon} size={44} /></div>
+            <div class="p-icon lg">{p.icon === 'pouch' ? <PouchArt size={72} /> : p.icon === 'ice' ? <IceArt size={76} /> : p.icon === 'jar' ? <JarArt size={70} /> : p.icon === 'bottle' ? <BottleArt size={74} /> : <Icon name={p.icon} size={44} />}</div>
             <div><h2 style="margin:0"><T hi="साइज़ और रेट" en="Sizes & rates" /></h2><p class="muted" style="margin:0"><T hi="रेट बदल सकते हैं — ऑर्डर पर पक्का करें।" en="Rates may change; confirmed at order." /></p></div>
           </div>
           <table class="price-table">

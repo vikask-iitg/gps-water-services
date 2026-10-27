@@ -599,3 +599,62 @@ body.modal-open { overflow: hidden; }
   .order-modal .time-chip > span { min-height: 46px; padding: 5px 4px; }
   .order-modal .form .btn[type="submit"] { min-height: 46px; margin-top: 4px; }
 }
+
+/* प्रोडक्ट ड्रॉपडाउन — आइकन के साथ */
+.form .field { display: grid; gap: 4px; position: relative; min-width: 0; }
+.order-modal .form .field { gap: 5px; }
+.psel-btn, .psel-list { display: none; }
+.psel.ready .psel-btn { display: flex; }
+.psel.ready .psel-native { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; bottom: 0; left: 0; }
+.psel-btn { align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 48px; padding: 6px 12px 6px 6px; text-align: left; cursor: pointer;
+  border: 1.5px solid #C5DCEB; border-radius: 12px; background: var(--bg); color: var(--text); font: 400 1rem var(--body); }
+.psel-btn:focus-visible, .psel.open .psel-btn { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(46,196,214,.3); }
+.psel-cur { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.psel-cur .psel-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.psel-cur .psel-ic { width: 32px; height: 32px; border-radius: 9px; }
+.psel-cur .psel-ic svg { width: 18px; height: 18px; }
+.psel-chev { color: var(--primary); display: grid; transition: transform .2s; flex-shrink: 0; }
+.psel.open .psel-chev { transform: rotate(180deg); }
+.psel-ic { flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; }
+.ic-jar { background: #E4EEFF; color: #2A5BD7; }
+.ic-ice { background: #DDF7FB; color: #0E8FA8; }
+.ic-bottle { background: #E6F0FA; color: var(--primary); }
+.ic-pouch { background: #E3F8EF; color: #138A63; }
+.psel.ready .psel-list:not([hidden]) { display: block; }
+.psel-list { position: absolute; z-index: 20; top: calc(100% + 6px); left: 0; width: max(100%, 290px); max-width: calc(100vw - 48px); margin: 0; padding: 6px; list-style: none;
+  background: var(--white); border: 1px solid rgba(11,79,138,.12); border-radius: 16px; box-shadow: 0 20px 44px -16px rgba(7,47,85,.45); animation: pselIn .16s ease-out; }
+@keyframes pselIn { from { opacity: 0; transform: translateY(-6px); } }
+.psel-list li { display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 8px; border-radius: 12px; cursor: pointer; outline: none; }
+.psel-list li + li { margin-top: 2px; }
+.psel-list li:hover, .psel-list li:focus-visible { background: #F1F8FC; }
+.psel-list li[aria-selected="true"] { background: #EAF4FB; box-shadow: inset 0 0 0 1.5px rgba(11,79,138,.25); }
+.psel-txt { flex: 1; min-width: 0; display: grid; }
+.psel-txt .psel-name { font-weight: 600; font-size: .98rem; line-height: 1.25; }
+.psel-txt small { font-size: .8rem; color: var(--muted); line-height: 1.3; }
+.psel-tick { color: var(--primary); opacity: 0; flex-shrink: 0; }
+.psel-list li[aria-selected="true"] .psel-tick { opacity: 1; }
+@media (max-width: 599px) {
+  .order-modal .psel-btn { min-height: 42px; padding: 4px 10px 4px 5px; font-size: .95rem; }
+  .order-modal .psel-cur .psel-ic { width: 30px; height: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .psel-list { animation: none; } }
+
+/* सूची पूरी पंक्ति जितनी चौड़ी */
+.form .grid-pq { position: relative; }
+.form .grid-pq .psel { position: static; }
+.form .grid-pq .psel-list { left: 0; right: 0; width: auto; max-width: none; }
+.order-modal .form { scroll-padding-bottom: 12px; }
+.psel-btn { min-width: 0; }
+.psel-cur .psel-name { display: block; min-width: 0; flex: 1; }
+/* ड्रॉपडाउन विकल्प — छोटे */
+.psel-list { padding: 4px; border-radius: 14px; }
+.psel-list li { gap: 10px; padding: 5px 8px 5px 5px; border-radius: 10px; }
+.psel-list li + li { margin-top: 1px; }
+.psel-list .psel-ic { width: 32px; height: 32px; border-radius: 9px; }
+.psel-list .psel-ic svg { width: 18px; height: 18px; }
+.psel-txt .psel-name { font-size: .88rem; }
+.psel-txt small { font-size: .72rem; }
+.psel-tick svg { width: 16px; height: 16px; }
+/* ड्रॉपडाउन सूची — सामग्री जितनी चौड़ी */
+.form .grid-pq .psel-list { right: auto; width: max-content; min-width: 230px; max-width: 100%; }
+.psel-txt .psel-name { white-space: nowrap; }

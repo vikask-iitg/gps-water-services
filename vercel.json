@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/products/20-litre-ro-jar", "destination": "/products/18-litre-ro-jar", "permanent": true }
+  ]
+}

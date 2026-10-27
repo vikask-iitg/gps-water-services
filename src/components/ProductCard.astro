@@ -1,12 +1,16 @@
 ---
 import T from './T.astro';
 import Icon from './Icon.astro';
+import PouchArt from './PouchArt.astro';
+import IceArt from './IceArt.astro';
+import JarArt from './JarArt.astro';
+import BottleArt from './BottleArt.astro';
 import type { Product } from '../data/site';
 interface Props { p: Product }
 const { p } = Astro.props;
 ---
 <article class="card product-card reveal">
-  <div class="p-icon"><Icon name={p.icon} size={34} /></div>
+  <div class="p-icon">{p.icon === 'pouch' ? <PouchArt size={60} /> : p.icon === 'ice' ? <IceArt size={60} /> : p.icon === 'jar' ? <JarArt size={52} /> : p.icon === 'bottle' ? <BottleArt size={58} /> : <Icon name={p.icon} size={34} />}</div>
   <h3><a href={`/products/${p.slug}`}><T {...p.name} /></a></h3>
   <p><T {...p.short} /></p>
   <ul class="tag-list">{p.features.slice(0, 3).map((f) => <li><T {...f} /></li>)}</ul>

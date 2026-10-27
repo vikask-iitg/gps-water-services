@@ -12,7 +12,7 @@ const full = (t: string, n: string) => `${t} | ${n}`;
 const titleHi = full(title.hi, business.name.hi);
 const titleEn = full(title.en, business.name.en);
 const url = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL('/og-image.jpg?v=4', Astro.site).toString();
+const ogImage = new URL('/og-image.jpg?v=5', Astro.site).toString();
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const nav = [
@@ -69,7 +69,7 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="GPS Chilled R.O. Water — 20 L RO jars, ice slabs, packaged water and water pouches. Call +91 62634 50248" />
+  <meta property="og:image:alt" content="GPS Chilled R.O. Water — 18 L RO jars, ice slabs, packaged water and water pouches. Call +91 62634 50248" />
   <meta property="og:locale" content="en_IN" />
   <meta property="og:locale:alternate" content="hi_IN" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -215,7 +215,7 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
 
     // F3/F4/F5/F6: फ़ॉर्म से भरा हुआ व्हाट्सऐप मैसेज
     const lblText = (el) => {
-      const lbl = el.closest('label') || el.closest('fieldset');
+      const lbl = el.closest('label') || el.closest('.field') || el.closest('fieldset');
       const t = lbl && lbl.querySelector('.lbl .t-' + h.dataset.lang);
       return t ? t.textContent.trim() : el.name;
     };
@@ -259,13 +259,51 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
       new IntersectionObserver(([en]) => stickyBar.classList.toggle('is-hidden', en.isIntersecting)).observe(heroHome);
     }
 
+    // प्रोडक्ट ड्रॉपडाउन (आइकन के साथ)
+    document.querySelectorAll('[data-psel]').forEach((wrap) => {
+      const btn = wrap.querySelector('.psel-btn');
+      const list = wrap.querySelector('.psel-list');
+      const native = wrap.querySelector('select');
+      const items = [...list.querySelectorAll('[role="option"]')];
+      const sync = () => {
+        items.forEach((li) => li.setAttribute('aria-selected', String(li.dataset.value === native.value)));
+        const li = items.find((x) => x.dataset.value === native.value) || items[0];
+        const cur = btn.querySelector('.psel-cur');
+        cur.innerHTML = '';
+        cur.append(li.querySelector('.psel-ic').cloneNode(true), li.querySelector('.psel-name').cloneNode(true));
+      };
+      const open = (v) => {
+        list.hidden = !v; btn.setAttribute('aria-expanded', String(v)); wrap.classList.toggle('open', v);
+        if (v) {
+          (items.find((li) => li.getAttribute('aria-selected') === 'true') || items[0]).focus({ preventScroll: true });
+          requestAnimationFrame(() => list.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
+        }
+      };
+      const pick = (li) => { native.value = li.dataset.value; native.dispatchEvent(new Event('change', { bubbles: true })); open(false); btn.focus(); };
+      btn.addEventListener('click', () => open(list.hidden));
+      items.forEach((li, i) => {
+        li.addEventListener('click', () => pick(li));
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown') { e.preventDefault(); items[Math.min(i + 1, items.length - 1)].focus(); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); items[Math.max(i - 1, 0)].focus(); }
+          else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(li); }
+          else if (e.key === 'Escape' || e.key === 'Tab') { e.stopPropagation(); open(false); if (e.key === 'Escape') btn.focus(); }
+        });
+      });
+      btn.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); open(true); } });
+      document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) open(false); });
+      native.addEventListener('change', sync);
+      wrap.closest('form').addEventListener('reset', () => setTimeout(sync));
+      wrap.classList.add('ready');
+    });
+
     // ऑर्डर पॉपअप
     const modal = document.getElementById('order-modal');
     const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
     document.querySelectorAll('input[type="date"]').forEach((d) => { d.min = today; if (!d.value) d.value = today; });
     document.querySelectorAll('[data-order-open]').forEach((b) => b.addEventListener('click', () => {
       const sel = modal.querySelector('select[name="product"]');
-      if (b.dataset.product) sel.value = b.dataset.product;
+      if (b.dataset.product) { sel.value = b.dataset.product; sel.dispatchEvent(new Event('change')); }
       const date = modal.querySelector('input[name="date"]');
       if (!date.value) date.value = today;
       modal.showModal();

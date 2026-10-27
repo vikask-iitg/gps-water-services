@@ -1,6 +1,6 @@
 # GPS Water Services — Website
 
-Bilingual (English / हिंदी) website for **GPS Water Services**, a chilled RO water supplier in Kusumkasa, Dist. Balod (Chhattisgarh), run by Vinod Thakur. The site turns visitors into WhatsApp and phone orders for 20 L RO jars, GPS Pure Ice slabs, packaged drinking water and water pouches.
+Bilingual (English / हिंदी) website for **GPS Water Services**, a chilled RO water supplier in Kusumkasa, Dist. Balod (Chhattisgarh), run by Vinod Thakur. The site turns visitors into WhatsApp and phone orders for 18 L RO jars, GPS Pure Ice slabs, packaged drinking water and water pouches.
 
 **Live:** https://gpswater.vercel.app
 

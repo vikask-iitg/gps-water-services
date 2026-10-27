@@ -11,6 +11,7 @@ const times = [
   { icon: 'moon', name: { hi: 'शाम', en: 'Evening' }, range: { hi: '2–8 बजे', en: '2–8 PM' } },
 ];
 const uid = modal ? 'm' : 'p';
+const sel = products.find((p) => p.slug === preselect) ?? products[0];
 ---
 <form class:list={['form', { card: !modal }]} data-wa-form data-kind-hi="नया ऑर्डर" data-kind-en="New order">
   {!modal && <h3><T hi="जल्दी ऑर्डर करें" en="Quick order" /></h3>}
@@ -20,13 +21,30 @@ const uid = modal ? 'm' : 'p';
   </div>
   <label><span class="lbl"><T hi="पता / गाँव" en="Address / Village" /></span><input name="address" required autocomplete="street-address" /></label>
   <div class="grid2 grid-pq">
-    <label><span class="lbl"><T hi="उत्पाद" en="Product" /></span>
-      <select name="product" required>
+    <div class="field psel" data-psel>
+      <span class="lbl"><T hi="उत्पाद" en="Product" /></span>
+      <button type="button" class="psel-btn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="psel-cur">
+          <span class={`psel-ic ic-${sel.icon}`}><Icon name={sel.icon} size={18} /></span>
+          <span class="psel-name"><T {...sel.name} /></span>
+        </span>
+        <span class="psel-chev"><Icon name="chevron" size={18} /></span>
+      </button>
+      <ul class="psel-list" role="listbox" hidden>
         {products.map((p) => (
-          <option value={p.slug} selected={p.slug === preselect} data-hi={p.name.hi} data-en={p.name.en}>{p.name.en}</option>
+          <li role="option" tabindex="-1" data-value={p.slug} aria-selected={p.slug === sel.slug ? 'true' : 'false'}>
+            <span class={`psel-ic ic-${p.icon}`}><Icon name={p.icon} size={22} /></span>
+            <span class="psel-txt"><span class="psel-name"><T {...p.name} /></span><small><T {...p.pick} /></small></span>
+            <span class="psel-tick"><Icon name="check" size={18} /></span>
+          </li>
+        ))}
+      </ul>
+      <select name="product" required class="psel-native" aria-label="Product">
+        {products.map((p) => (
+          <option value={p.slug} selected={p.slug === sel.slug} data-hi={p.name.hi} data-en={p.name.en}>{p.name.en}</option>
         ))}
       </select>
-    </label>
+    </div>
     <label><span class="lbl"><T hi="मात्रा" en="Quantity" /></span><input name="qty" type="number" min="1" value="1" required /></label>
   </div>
   <label><span class="lbl"><T hi="डिलीवरी की तारीख़" en="Delivery date" /></span><input name="date" type="date" required /></label>
