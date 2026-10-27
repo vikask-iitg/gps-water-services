@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import T from '../components/T.astro';
 import Icon from '../components/Icon.astro';
+import OrderForm from '../components/OrderForm.astro';
 import { business, products, waLink } from '../data/site';
 import type { Bi } from '../data/site';
 
@@ -162,9 +163,22 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
     <div class="wrap copy">© {new Date().getFullYear()} <T {...business.name} /></div>
   </footer>
 
+  <!-- ऑर्डर पॉपअप -->
+  <dialog class="order-modal" id="order-modal" aria-labelledby="order-modal-title">
+    <div class="om-head">
+      <span class="om-ic"><Icon name="truck" size={22} /></span>
+      <div>
+        <h2 id="order-modal-title" tabindex="-1" autofocus><T hi="ऑर्डर करें" en="Place your order" /></h2>
+        <p><T hi="जानकारी भरें — हम व्हाट्सऐप पर ऑर्डर पक्का करेंगे।" en="Fill in the details and we’ll confirm on WhatsApp." /></p>
+      </div>
+      <button class="om-close" type="button" data-order-close aria-label="Close"><Icon name="close" size={22} /></button>
+    </div>
+    <OrderForm modal />
+  </dialog>
+
   <!-- F2: स्टिकी ऑर्डर बार (मोबाइल) -->
   <div class="sticky-order">
-    <a class="btn btn-wa" href={waLink(waHi)} target="_blank" rel="noopener" data-track="whatsapp" data-wa-msg-hi={waHi} data-wa-msg-en={waEn}><Icon name="whatsapp" size={20} /> <T hi="व्हाट्सऐप पर ऑर्डर" en="Order on WhatsApp" /></a>
+    <a class="btn btn-wa" href={waLink(waHi)} target="_blank" rel="noopener" data-track="whatsapp" data-wa-msg-hi={waHi} data-wa-msg-en={waEn}><Icon name="whatsapp" size={20} /> <span class="lbl-long"><T hi="व्हाट्सऐप पर ऑर्डर" en="Order on WhatsApp" /></span><span class="lbl-short"><T hi="व्हाट्सऐप" en="WhatsApp" /></span></a>
     <a class="btn btn-primary" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> <T hi="कॉल करें" en="Call Now" /></a>
   </div>
 
@@ -224,6 +238,8 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
         });
         track('form_submit', { form: form.dataset.kindEn });
         window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+        const dlg = form.closest('dialog');
+        if (dlg) { dlg.close(); form.reset(); form.querySelectorAll('input[type="date"]').forEach((d) => { d.value = today; }); }
       });
     });
 
@@ -233,6 +249,23 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
         a.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(a.dataset[h.dataset.lang === 'en' ? 'waMsgEn' : 'waMsgHi']);
       });
     });
+
+    // ऑर्डर पॉपअप
+    const modal = document.getElementById('order-modal');
+    const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    document.querySelectorAll('input[type="date"]').forEach((d) => { d.min = today; if (!d.value) d.value = today; });
+    document.querySelectorAll('[data-order-open]').forEach((b) => b.addEventListener('click', () => {
+      const sel = modal.querySelector('select[name="product"]');
+      if (b.dataset.product) sel.value = b.dataset.product;
+      const date = modal.querySelector('input[name="date"]');
+      if (!date.value) date.value = today;
+      modal.showModal();
+      document.body.classList.add('modal-open');
+      track('order_modal_open', { product: b.dataset.product || 'any' });
+    }));
+    modal.addEventListener('close', () => document.body.classList.remove('modal-open'));
+    modal.querySelector('[data-order-close]').addEventListener('click', () => modal.close());
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
 
     document.addEventListener('click', (e) => {
       const a = e.target.closest('[data-track]');

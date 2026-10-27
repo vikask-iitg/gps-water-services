@@ -1,12 +1,19 @@
 ---
 import T from './T.astro';
+import Icon from './Icon.astro';
 import { products } from '../data/site';
 // F4: जल्दी ऑर्डर फ़ॉर्म — व्हाट्सऐप पर भरा हुआ मैसेज भेजता है।
-interface Props { preselect?: string }
-const { preselect = '' } = Astro.props;
+interface Props { preselect?: string; modal?: boolean }
+const { preselect = '', modal = false } = Astro.props;
+const times = [
+  { icon: 'sun', name: { hi: 'सुबह', en: 'Morning' }, range: { hi: '6–10 बजे', en: '6–10 AM' } },
+  { icon: 'clock', name: { hi: 'दोपहर', en: 'Midday' }, range: { hi: '10–2 बजे', en: '10 AM–2 PM' } },
+  { icon: 'moon', name: { hi: 'शाम', en: 'Evening' }, range: { hi: '2–8 बजे', en: '2–8 PM' } },
+];
+const uid = modal ? 'm' : 'p';
 ---
-<form class="card form" data-wa-form data-kind-hi="नया ऑर्डर" data-kind-en="New order">
-  <h3><T hi="जल्दी ऑर्डर करें" en="Quick order" /></h3>
+<form class:list={['form', { card: !modal }]} data-wa-form data-kind-hi="नया ऑर्डर" data-kind-en="New order">
+  {!modal && <h3><T hi="जल्दी ऑर्डर करें" en="Quick order" /></h3>}
   <div class="grid2">
     <label><span class="lbl"><T hi="नाम" en="Name" /></span><input name="name" required autocomplete="name" /></label>
     <label><span class="lbl"><T hi="फ़ोन" en="Phone" /></span><input name="phone" type="tel" required inputmode="tel" pattern="[0-9+ ]{10,14}" autocomplete="tel" /></label>
@@ -23,6 +30,17 @@ const { preselect = '' } = Astro.props;
     <label><span class="lbl"><T hi="मात्रा" en="Quantity" /></span><input name="qty" type="number" min="1" value="1" required /></label>
   </div>
   <label><span class="lbl"><T hi="डिलीवरी की तारीख़" en="Delivery date" /></span><input name="date" type="date" required /></label>
+  <fieldset>
+    <legend class="lbl"><T hi="पसंदीदा समय" en="Preferred time" /></legend>
+    <div class="time-chips">
+      {times.map((t, i) => (
+        <label class="time-chip">
+          <input type="radio" name="time" value={t.name.en} checked={i === 0} data-hi={`${t.name.hi} (${t.range.hi})`} data-en={`${t.name.en} (${t.range.en})`} id={`time-${uid}-${i}`} />
+          <span><Icon name={t.icon} size={20} /><b><T {...t.name} /></b><small><T {...t.range} /></small></span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
   <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <button class="btn btn-wa block" type="submit"><T hi="व्हाट्सऐप पर भेजें" en="Send on WhatsApp" /></button>
 </form>

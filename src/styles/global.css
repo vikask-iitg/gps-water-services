@@ -453,3 +453,83 @@ html[data-lang="hi"] .info-list small { text-transform: none; letter-spacing: 0;
 .owner-card small { display: block; font-size: .76rem; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: #8FB0CC; line-height: 1.3; }
 html[data-lang="hi"] .owner-card small { text-transform: none; letter-spacing: 0; font-size: .85rem; }
 .owner-card strong { display: block; font-family: var(--head); font-size: 1.3rem; font-weight: 700; color: var(--white); line-height: 1.25; }
+
+/* "अभी ऑर्डर करें" बटन */
+.btn-order { color: var(--white); background: linear-gradient(135deg, #17A9C4, #0E6BA8 55%, var(--primary)); box-shadow: 0 12px 26px -12px rgba(14,107,168,.9); }
+.btn-order:hover { filter: brightness(1.08); }
+.hero-home .btn-order { background: linear-gradient(135deg, #3FD3E3, #17A9C4 45%, #0E7FB0); box-shadow: 0 14px 30px -12px rgba(46,196,214,.8); }
+@media (max-width: 599px) {
+  .hero-home .hero-cta { grid-template-columns: 1.5fr 1fr; }
+  .hero-home .hero-cta .btn-order { grid-column: 1 / -1; min-height: 52px; font-size: 1rem; }
+}
+
+/* ऑर्डर पॉपअप */
+.order-modal { width: min(540px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 0; border: 0; border-radius: 24px; background: var(--white); color: var(--text);
+  box-shadow: 0 30px 80px -20px rgba(7,47,85,.6); overflow: auto; overscroll-behavior: contain; }
+.order-modal::backdrop { background: rgba(7,30,55,.55); backdrop-filter: blur(4px); }
+.order-modal[open] { animation: omIn .25s ease-out; }
+.order-modal[open]::backdrop { animation: omFade .25s ease-out; }
+@keyframes omIn { from { opacity: 0; transform: translateY(16px) scale(.98); } }
+@keyframes omFade { from { opacity: 0; } }
+.om-head { position: sticky; top: 0; z-index: 1; display: flex; gap: 14px; align-items: flex-start; padding: 20px 20px 16px 24px;
+  background: linear-gradient(135deg, #0D5797, #0A4479 60%, #0E7FB0); color: var(--white); }
+.om-head h2 { color: var(--white); font-size: 1.35rem; margin: 0 0 2px; }
+.om-head p { margin: 0; font-size: .92rem; color: rgba(226,240,250,.85); }
+.om-ic { flex-shrink: 0; width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; color: #7FE3F0; background: rgba(46,196,214,.16); border: 1px solid rgba(46,196,214,.35); }
+.om-head > div { flex: 1; }
+.om-close { flex-shrink: 0; width: 44px; height: 44px; margin: -6px -6px 0 0; border: 0; border-radius: 12px; display: grid; place-items: center; cursor: pointer; color: var(--white); background: rgba(255,255,255,.1); }
+.om-close:hover { background: rgba(255,255,255,.2); }
+.order-modal .form { padding: 20px 24px 24px; }
+body.modal-open { overflow: hidden; }
+@media (max-width: 599px) {
+  .order-modal { width: 100%; max-width: 100%; margin: auto 0 0; max-height: 92dvh; border-radius: 24px 24px 0 0; }
+  .order-modal[open] { animation: omUp .3s cubic-bezier(.2,.8,.2,1); }
+  @keyframes omUp { from { transform: translateY(100%); } }
+  .order-modal .form { padding: 18px 16px calc(20px + env(safe-area-inset-bottom)); }
+  .om-head { padding: 18px 16px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .order-modal[open], .order-modal[open]::backdrop { animation: none; } }
+.om-head h2:focus { outline: none; }
+
+/* मोबाइल: WhatsApp और Call बटन बराबर */
+.lbl-short { display: none; }
+@media (max-width: 899px) {
+  .sticky-order { grid-template-columns: 1fr 1fr; }
+  .sticky-order .lbl-long { display: none; }
+  .sticky-order .lbl-short { display: inline; }
+}
+@media (max-width: 599px) {
+  .hero-home .hero-cta { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .hero-home h1 { font-size: 2.35rem; }
+  .hero-home .btn-lg { min-height: 48px; padding: 10px 18px; font-size: .95rem; }
+  .hero-home .hero-cta { gap: 10px; flex-wrap: nowrap; }
+  .trust { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 14px; }
+  .trust strong { white-space: normal; }
+}
+
+/* ड्रॉपडाउन का तीर — किनारे से अंदर, डेट आइकन के साथ एक लाइन में */
+.form select {
+  -webkit-appearance: none; appearance: none; cursor: pointer; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%230B4F8A' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
+}
+.form select::-ms-expand { display: none; }
+.form input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: .75; margin-right: 0; }
+
+/* पसंदीदा समय: टैप चिप्स */
+.time-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.time-chip { position: relative; display: block; }
+.time-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.time-chip > span { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 6px; min-height: 76px; justify-content: center; text-align: center;
+  border: 1.5px solid #C5DCEB; border-radius: 14px; background: var(--bg); cursor: pointer; transition: border-color .15s, background .15s, box-shadow .15s; }
+.time-chip svg { color: #7B93AB; margin-bottom: 2px; }
+.time-chip b { font-size: .95rem; font-weight: 700; line-height: 1.2; }
+.time-chip small { font-size: .78rem; color: var(--muted); line-height: 1.2; }
+.time-chip:hover > span { border-color: var(--aqua); }
+.time-chip input:checked + span { border-color: var(--primary); background: #EAF4FB; box-shadow: 0 0 0 3px rgba(46,196,214,.25); }
+.time-chip input:checked + span svg, .time-chip input:checked + span b { color: var(--primary); }
+.time-chip input:focus-visible + span { outline: 3px solid var(--aqua); outline-offset: 2px; }
+.form legend { padding: 0; margin-bottom: 4px; }

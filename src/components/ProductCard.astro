@@ -1,7 +1,6 @@
 ---
 import T from './T.astro';
 import Icon from './Icon.astro';
-import WaButton from './WaButton.astro';
 import type { Product } from '../data/site';
 interface Props { p: Product }
 const { p } = Astro.props;
@@ -11,7 +10,7 @@ const { p } = Astro.props;
   <h3><a href={`/products/${p.slug}`}><T {...p.name} /></a></h3>
   <p><T {...p.short} /></p>
   <ul class="tag-list">{p.features.slice(0, 3).map((f) => <li><T {...f} /></li>)}</ul>
-  <WaButton hi={`नमस्ते, मुझे ${p.name.hi} ऑर्डर करना है।\nमात्रा: \nपता: \nसमय: `} en={`Hello, I want to order ${p.name.en}.\nQuantity: \nAddress: \nTime: `} class="btn-sm block">
-    <T hi="ऑर्डर करें" en="Order now" />
-  </WaButton>
+  <button class="btn btn-order btn-sm block" type="button" data-order-open data-product={p.slug}>
+    <Icon name="truck" size={18} /> <T hi="अभी ऑर्डर करें" en="Order now" />
+  </button>
 </article>
