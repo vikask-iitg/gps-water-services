@@ -5,7 +5,6 @@ import Icon from '../components/Icon.astro';
 import Wave from '../components/Wave.astro';
 import HeroArt from '../components/HeroArt.astro';
 import ProductCard from '../components/ProductCard.astro';
-import WaButton from '../components/WaButton.astro';
 import OrderForm from '../components/OrderForm.astro';
 import { business, products, deliveryAreas, reviews } from '../data/site';
 
@@ -28,7 +27,6 @@ const why = [
         <p class="lead"><T hi="20 ली. ठंडा RO जार, पैक्ड पानी, GPS Pure Ice बर्फ़ सिल्ली और पानी पाउच — सीधे आपके दरवाज़े तक।" en="20 L chilled RO jars, packaged water, GPS Pure Ice slabs and water pouches, delivered to your door." /></p>
         <div class="btn-row hero-cta">
           <button class="btn btn-order btn-lg" type="button" data-order-open><Icon name="truck" size={20} /> <T hi="अभी ऑर्डर करें" en="Order Now" /></button>
-          <WaButton class="btn-lg" hi={"नमस्ते GPS वाटर, मुझे ऑर्डर करना है।\nउत्पाद: \nमात्रा: \nपता: \nसमय: "} en={"Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \nAddress: \nTime: "}><T hi="व्हाट्सऐप" en="WhatsApp" /></WaButton>
           <a class="btn btn-glass btn-lg" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> <T hi="कॉल करें" en="Call Now" /></a>
         </div>
         <p class="hero-note"><Icon name="clock" size={16} /> <T {...business.hours} /> · <T hi="मिनटों में जवाब" en="Replies within minutes" /></p>

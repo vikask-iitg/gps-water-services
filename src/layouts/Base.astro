@@ -265,7 +265,8 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
     }));
     modal.addEventListener('close', () => document.body.classList.remove('modal-open'));
     modal.querySelector('[data-order-close]').addEventListener('click', () => modal.close());
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+    // सिर्फ़ ✕ बटन से बंद हो — बाहर क्लिक या Esc से नहीं
+    modal.addEventListener('cancel', (e) => e.preventDefault());
 
     document.addEventListener('click', (e) => {
       const a = e.target.closest('[data-track]');

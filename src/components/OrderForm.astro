@@ -19,7 +19,7 @@ const uid = modal ? 'm' : 'p';
     <label><span class="lbl"><T hi="फ़ोन" en="Phone" /></span><input name="phone" type="tel" required inputmode="tel" pattern="[0-9+ ]{10,14}" autocomplete="tel" /></label>
   </div>
   <label><span class="lbl"><T hi="पता / गाँव" en="Address / Village" /></span><input name="address" required autocomplete="street-address" /></label>
-  <div class="grid2">
+  <div class="grid2 grid-pq">
     <label><span class="lbl"><T hi="उत्पाद" en="Product" /></span>
       <select name="product" required>
         {products.map((p) => (

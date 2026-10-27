@@ -460,7 +460,7 @@ html[data-lang="hi"] .owner-card small { text-transform: none; letter-spacing: 0
 .hero-home .btn-order { background: linear-gradient(135deg, #3FD3E3, #17A9C4 45%, #0E7FB0); box-shadow: 0 14px 30px -12px rgba(46,196,214,.8); }
 @media (max-width: 599px) {
   .hero-home .hero-cta { grid-template-columns: 1.5fr 1fr; }
-  .hero-home .hero-cta .btn-order { grid-column: 1 / -1; min-height: 52px; font-size: 1rem; }
+  .hero-home .hero-cta .btn { min-height: 52px; font-size: 1rem; }
 }
 
 /* ऑर्डर पॉपअप */
@@ -533,3 +533,31 @@ body.modal-open { overflow: hidden; }
 .time-chip input:checked + span svg, .time-chip input:checked + span b { color: var(--primary); }
 .time-chip input:focus-visible + span { outline: 3px solid var(--aqua); outline-offset: 2px; }
 .form legend { padding: 0; margin-bottom: 4px; }
+
+/* मोबाइल पॉपअप — कॉम्पैक्ट, एक स्क्रीन में */
+@media (max-width: 599px) {
+  .order-modal { max-height: 96dvh; }
+  .om-head { padding: 12px 14px 10px 16px; gap: 10px; align-items: center; }
+  .om-head h2 { font-size: 1.12rem; margin: 0; }
+  .om-head p { font-size: .8rem; line-height: 1.35; }
+  .om-ic { width: 36px; height: 36px; border-radius: 10px; }
+  .om-close { width: 40px; height: 40px; margin: 0; }
+  .order-modal .form { gap: 10px; padding: 14px 14px calc(14px + env(safe-area-inset-bottom)); }
+  .order-modal .form label, .order-modal .form fieldset { gap: 2px; }
+  .order-modal .form .lbl, .order-modal .form legend { font-size: .85rem; }
+  .order-modal .form input, .order-modal .form select { min-height: 44px; padding: 8px 12px; font-size: .95rem; }
+  .order-modal .form select { padding-right: 34px; background-position: right 10px center; background-size: 16px; }
+  .order-modal .grid2 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .order-modal .grid-pq { grid-template-columns: 1.7fr 1fr; }
+  .order-modal .time-chip > span { min-height: 50px; padding: 6px 4px; }
+  .order-modal .time-chip svg { display: none; }
+  .order-modal .time-chip b { font-size: .9rem; }
+  .order-modal .time-chip small { font-size: .72rem; }
+  .order-modal .form .btn { min-height: 48px; }
+}
+/* मोबाइल पॉपअप: बीच में तैरता कार्ड */
+@media (max-width: 599px) {
+  .order-modal { width: calc(100% - 24px); max-width: 480px; margin: auto; max-height: calc(100dvh - 24px); border-radius: 22px; }
+  .order-modal[open] { animation: omIn .25s ease-out; }
+  .order-modal .form { padding-bottom: 16px; }
+}
