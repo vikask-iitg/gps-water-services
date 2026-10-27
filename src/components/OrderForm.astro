@@ -1,0 +1,28 @@
+---
+import T from './T.astro';
+import { products } from '../data/site';
+// F4: जल्दी ऑर्डर फ़ॉर्म — व्हाट्सऐप पर भरा हुआ मैसेज भेजता है।
+interface Props { preselect?: string }
+const { preselect = '' } = Astro.props;
+---
+<form class="card form" data-wa-form data-kind-hi="नया ऑर्डर" data-kind-en="New order">
+  <h3><T hi="जल्दी ऑर्डर करें" en="Quick order" /></h3>
+  <div class="grid2">
+    <label><span class="lbl"><T hi="नाम" en="Name" /></span><input name="name" required autocomplete="name" /></label>
+    <label><span class="lbl"><T hi="फ़ोन" en="Phone" /></span><input name="phone" type="tel" required inputmode="tel" pattern="[0-9+ ]{10,14}" autocomplete="tel" /></label>
+  </div>
+  <label><span class="lbl"><T hi="पता / गाँव" en="Address / Village" /></span><input name="address" required autocomplete="street-address" /></label>
+  <div class="grid2">
+    <label><span class="lbl"><T hi="उत्पाद" en="Product" /></span>
+      <select name="product" required>
+        {products.map((p) => (
+          <option value={p.slug} selected={p.slug === preselect} data-hi={p.name.hi} data-en={p.name.en}>{p.name.en}</option>
+        ))}
+      </select>
+    </label>
+    <label><span class="lbl"><T hi="मात्रा" en="Quantity" /></span><input name="qty" type="number" min="1" value="1" required /></label>
+  </div>
+  <label><span class="lbl"><T hi="डिलीवरी की तारीख़" en="Delivery date" /></span><input name="date" type="date" required /></label>
+  <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <button class="btn btn-wa block" type="submit"><T hi="व्हाट्सऐप पर भेजें" en="Send on WhatsApp" /></button>
+</form>

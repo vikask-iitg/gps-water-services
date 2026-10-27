@@ -1,0 +1,6 @@
+---
+// दोनों भाषाएँ रेंडर होती हैं; CSS चुनी हुई भाषा दिखाता है (बिना रीलोड)।
+interface Props { hi: string; en: string }
+const { hi, en } = Astro.props;
+---
+<span class="t-hi">{hi}</span><span class="t-en" lang="en">{en}</span>

@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import Icon from '../components/Icon.astro';
+import Wave from '../components/Wave.astro';
+import HeroArt from '../components/HeroArt.astro';
+import ProductCard from '../components/ProductCard.astro';
+import WaButton from '../components/WaButton.astro';
+import OrderForm from '../components/OrderForm.astro';
+import { business, products, deliveryAreas, reviews } from '../data/site';
+
+const why = [
+  { icon: 'shield', t: { hi: 'RO + UV शुद्ध', en: 'RO + UV purified' }, d: { hi: 'मल्टी-स्टेज RO और UV से हर बूँद साफ़।', en: 'Multi-stage RO and UV clean every drop.' } },
+  { icon: 'lab', t: { hi: 'नियमित जाँच', en: 'Regular testing' }, d: { hi: `गुणवत्ता की जाँच — ${business.certificate}।`, en: `Quality testing to ${business.certificate}.` } },
+  { icon: 'truck', t: { hi: 'समय पर डिलीवरी', en: 'On-time delivery' }, d: { hi: 'घर, ऑफ़िस और दुकान तक, तय समय पर।', en: 'To homes, offices and shops, on schedule.' } },
+  { icon: 'ice', t: { hi: 'ठंडा और ताज़ा', en: 'Cold and fresh' }, d: { hi: 'चिल्ड जार और शुद्ध पानी की बर्फ़।', en: 'Chilled jars and ice made from pure water.' } },
+];
+---
+<Base
+  title={{ hi: '20 ली. RO चिल्ड पानी जार, बर्फ़ सिल्ली — कुसुमकसा, बालोद', en: '20 L RO Chilled Water Jars & Ice Slabs — Kusumkasa, Balod' }}
+  description={{ hi: 'कुसुमकसा और बालोद में 20 लीटर RO चिल्ड पानी जार, पैक्ड पानी, बर्फ़ सिल्ली और पानी पाउच की डिलीवरी। व्हाट्सऐप पर ऑर्डर करें।', en: '20 L RO chilled water jars, packaged water, ice slabs and water pouches delivered in Kusumkasa and Balod.' }}
+>
+  <section class="hero hero-home">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="hero-kicker"><span class="dot"></span><T hi="कुसुमकसा · बालोद में होम डिलीवरी" en="Home delivery in Kusumkasa · Balod" /></span>
+        <h1><T hi="GPS चिल्ड आर.ओ. वाटर" en="GPS Chilled R.O. Water" /><span class="accent"><T {...business.tagline} /></span></h1>
+        <p class="lead"><T hi="20 ली. ठंडा RO जार, पैक्ड पानी, GPS Pure Ice बर्फ़ सिल्ली और पानी पाउच — सीधे आपके दरवाज़े तक।" en="20 L chilled RO jars, packaged water, GPS Pure Ice slabs and water pouches, delivered to your door." /></p>
+        <div class="btn-row hero-cta">
+          <WaButton class="btn-lg" hi={"नमस्ते GPS वाटर, मुझे ऑर्डर करना है।\nउत्पाद: \nमात्रा: \nपता: \nसमय: "} en={"Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \nAddress: \nTime: "}><T hi="व्हाट्सऐप पर ऑर्डर" en="Order on WhatsApp" /></WaButton>
+          <a class="btn btn-glass btn-lg" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> <T hi="कॉल करें" en="Call Now" /></a>
+        </div>
+        <p class="hero-note"><Icon name="clock" size={16} /> <T {...business.hours} /> · <T hi="मिनटों में जवाब" en="Replies within minutes" /></p>
+        <ul class="trust">
+          <li><span class="trust-ic"><Icon name="drop" size={20} /></span><span><strong>RO + UV</strong><small><T hi="मल्टी-स्टेज शुद्ध" en="Multi-stage purified" /></small></span></li>
+          <li><span class="trust-ic"><Icon name="shield" size={20} /></span><span><strong>ISO/IEC 17025:2017</strong><small><T hi="गुणवत्ता मानक" en="Quality standard" /></small></span></li>
+          <li><span class="trust-ic"><Icon name="truck" size={20} /></span><span><strong><T hi="होम डिलीवरी" en="Home delivery" /></strong><small><T hi="तय समय पर" en="On schedule" /></small></span></li>
+        </ul>
+      </div>
+      <HeroArt />
+    </div>
+    <Wave color="var(--bg)" />
+  </section>
+
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><T hi="हमारे उत्पाद" en="Our products" /></span>
+        <h2><T hi="हर ज़रूरत के लिए शुद्ध पानी" en="Pure water for every need" /></h2>
+        <p><T hi="घर के रोज़ के जार से लेकर शादी की बल्क सप्लाई तक।" en="From daily home jars to bulk supply for weddings." /></p>
+      </div>
+      <div class="grid grid-4">{products.map((p) => <ProductCard p={p} />)}</div>
+    </div>
+  </section>
+
+  <Wave />
+  <section class="section section-frost">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><T hi="कैसे काम करता है" en="How it works" /></span>
+        <h2><T hi="तीन आसान कदम" en="Three easy steps" /></h2>
+      </div>
+      <div class="grid grid-3 steps">
+        <div class="card step reveal"><div class="p-icon"><Icon name="whatsapp" size={30} /></div><h3><T hi="ऑर्डर करें" en="Order" /></h3><p class="muted"><T hi="व्हाट्सऐप, कॉल या फ़ॉर्म से — 60 सेकंड में।" en="Via WhatsApp, call or form, in under 60 seconds." /></p></div>
+        <div class="card step reveal"><div class="p-icon"><Icon name="drop" size={30} /></div><h3><T hi="शुद्ध और ठंडा" en="Purified & chilled" /></h3><p class="muted"><T hi="RO + UV से शुद्ध, ठंडा करके सीलबंद।" en="RO + UV purified, chilled and sealed." /></p></div>
+        <div class="card step reveal"><div class="p-icon"><Icon name="truck" size={30} /></div><h3><T hi="डिलीवरी" en="Delivery" /></h3><p class="muted"><T hi="तय समय पर आपके घर, ऑफ़िस या दुकान तक।" en="To your home, office or shop on time." /></p></div>
+      </div>
+    </div>
+  </section>
+  <Wave flip />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><T hi="हमें क्यों चुनें" en="Why choose us" /></span>
+        <h2><T hi="भरोसे का पानी, हर दिन" en="Water you can trust, every day" /></h2>
+      </div>
+      <div class="grid grid-4">
+        {why.map((w) => (
+          <div class="feature reveal"><div class="p-icon"><Icon name={w.icon} size={26} /></div><div><h3><T {...w.t} /></h3><p><T {...w.d} /></p></div></div>
+        ))}
+      </div>
+      <p style="text-align:center;margin-top:28px"><a class="link-more" href="/purity"><T hi="हमारी शुद्धता प्रक्रिया देखें" en="See our purification process" /> <Icon name="arrow" size={18} /></a></p>
+    </div>
+  </section>
+
+  <Wave />
+  <section class="section section-frost" id="delivery">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><T hi="डिलीवरी एरिया" en="Delivery area" /></span>
+        <h2><T hi="यहाँ डिलीवरी होती है" en="We deliver here" /></h2>
+        <p><T hi="आपका गाँव सूची में नहीं? व्हाट्सऐप पर पूछें।" en="Village not listed? Ask us on WhatsApp." /></p>
+      </div>
+      <ul class="areas">{deliveryAreas.map((a) => <li><Icon name="pin" size={18} /><T {...a} /></li>)}</ul>
+    </div>
+  </section>
+  <Wave flip />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><T hi="ग्राहकों की राय" en="Customer reviews" /></span>
+        <h2><T hi="हमारे ग्राहक क्या कहते हैं" en="What our customers say" /></h2>
+      </div>
+      <div class="grid grid-3">
+        {reviews.map((r) => (
+          <figure class="card review reveal" style="margin:0">
+            <div class="stars" aria-label="5/5">{[1,2,3,4,5].map(() => <Icon name="star" size={18} />)}</div>
+            <blockquote><T {...r.text} /></blockquote>
+            <cite>{r.name}<small><T {...r.place} /></small></cite>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap two-col">
+      <div class="cta-band reveal" style="grid-template-columns:1fr">
+        <div>
+          <h2><T hi="हर हफ़्ते जार, बिना झंझट" en="Weekly jars, zero hassle" /></h2>
+          <p><T hi="हफ़्ते में 2, 4 या 7 जार का प्लान लें — हम तय दिन पर पहुँचाएँगे।" en="Pick a plan of 2, 4 or 7 jars a week and we deliver on fixed days." /></p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-wa" href="/subscription"><T hi="सब्सक्रिप्शन लें" en="Subscribe" /></a>
+          <a class="btn btn-light" href="/bulk-orders"><T hi="शादी / बल्क कोटेशन" en="Wedding / bulk quote" /></a>
+        </div>
+      </div>
+      <OrderForm />
+    </div>
+  </section>
+</Base>

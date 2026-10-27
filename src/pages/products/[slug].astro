@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import T from '../../components/T.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import WaButton from '../../components/WaButton.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import OrderForm from '../../components/OrderForm.astro';
+import { business, products } from '../../data/site';
+import type { Product } from '../../data/site';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: Product };
+const others = products.filter((o) => o.slug !== p.slug);
+const isJar = p.icon === 'jar';
+---
+<Base title={{ hi: `${p.name.hi} — कुसुमकसा, बालोद`, en: `${p.name.en} — Kusumkasa, Balod` }} description={p.short}>
+  <PageHero title={p.name} lead={p.short}>
+    <div class="btn-row" style="margin-top:20px">
+      <WaButton hi={`नमस्ते, मुझे ${p.name.hi} ऑर्डर करना है।\nसाइज़: \nमात्रा: \nपता: \nसमय: `} en={`Hello, I want to order ${p.name.en}.\nSize: \nQuantity: \nAddress: \nTime: `}><T hi="व्हाट्सऐप पर ऑर्डर" en="Order on WhatsApp" /></WaButton>
+      <a class="btn btn-light" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> <T hi="कॉल करें" en="Call Now" /></a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div class="grid">
+        <div class="card">
+          <div style="display:flex;gap:16px;align-items:center;margin-bottom:12px">
+            <div class="p-icon lg"><Icon name={p.icon} size={44} /></div>
+            <div><h2 style="margin:0"><T hi="साइज़ और रेट" en="Sizes & rates" /></h2><p class="muted" style="margin:0"><T hi="रेट बदल सकते हैं — ऑर्डर पर पक्का करें।" en="Rates may change; confirmed at order." /></p></div>
+          </div>
+          <table class="price-table">
+            <thead><tr><th><T hi="प्रकार / साइज़" en="Type / size" /></th><th><T hi="रेट" en="Rate" /></th><th></th></tr></thead>
+            <tbody>
+              {p.sizes.map((s) => (
+                <tr>
+                  <td><T {...s.label} /></td>
+                  <td class="price">{s.price ? <>₹{s.price}<small><T {...s.unit} /></small></> : <T hi="कॉल करें" en="Call for rate" />}</td>
+                  <td style="text-align:right">
+                    <WaButton class="btn-sm" hi={`नमस्ते, मुझे ${p.name.hi} — ${s.label.hi} चाहिए।\nमात्रा: \nपता: \nसमय: `} en={`Hello, I need ${p.name.en} — ${s.label.en}.\nQuantity: \nAddress: \nTime: `}><T hi="ऑर्डर" en="Order" /></WaButton>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3><T hi="खास बातें" en="Highlights" /></h3>
+            <ul class="check-list">{p.features.map((f) => <li><Icon name="check" size={20} /><T {...f} /></li>)}</ul>
+          </div>
+          <div class="card">
+            <h3><T hi="किसके लिए" en="Ideal for" /></h3>
+            <ul class="check-list">{p.uses.map((u) => <li><Icon name="check" size={20} /><T {...u} /></li>)}</ul>
+          </div>
+        </div>
+        <div class="card">
+          <dl class="kv">
+            <div><dt><T hi="मुख्य खरीदार" en="Main buyers" /></dt><dd><T {...p.buyers} /></dd></div>
+            <div><dt><T hi="ऑर्डर का तरीका" en="How to order" /></dt><dd><T {...p.orderWay} /></dd></div>
+          </dl>
+          <p style="margin:16px 0 0">
+            {isJar
+              ? <a class="link-more" href="/subscription"><T hi="साप्ताहिक सब्सक्रिप्शन देखें" en="See weekly subscription" /> <Icon name="arrow" size={18} /></a>
+              : <a class="link-more" href="/bulk-orders"><T hi="बल्क कोटेशन माँगें" en="Request a bulk quote" /> <Icon name="arrow" size={18} /></a>}
+          </p>
+        </div>
+      </div>
+      <div class="sticky-col"><OrderForm preselect={p.slug} /></div>
+    </div>
+  </section>
+
+  <section class="section section-frost">
+    <div class="wrap">
+      <div class="section-head"><h2><T hi="दूसरे उत्पाद" en="Other products" /></h2></div>
+      <div class="grid grid-3">{others.map((o) => <ProductCard p={o} />)}</div>
+    </div>
+  </section>
+</Base>

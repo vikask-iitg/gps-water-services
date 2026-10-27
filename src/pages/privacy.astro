@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import PageHero from '../components/PageHero.astro';
+import { business } from '../data/site';
+---
+<Base title={{ hi: 'प्राइवेसी पॉलिसी', en: 'Privacy Policy' }} description={{ hi: 'हम आपकी जानकारी कैसे इस्तेमाल करते हैं।', en: 'How we use your information.' }}>
+  <PageHero title={{ hi: 'प्राइवेसी पॉलिसी', en: 'Privacy Policy' }} lead={{ hi: 'आपकी जानकारी सुरक्षित है।', en: 'Your information is safe with us.' }} />
+  <section class="section"><div class="wrap" style="max-width:780px">
+    <p><T hi="इस वेबसाइट के फ़ॉर्म आपकी जानकारी (नाम, फ़ोन, पता) सीधे हमारे व्हाट्सऐप पर भेजते हैं। हम यह जानकारी अपने सर्वर पर जमा नहीं करते।" en="Forms on this website send your details (name, phone, address) directly to our WhatsApp. We do not store them on our servers." /></p>
+    <p><T hi="आपकी जानकारी का इस्तेमाल सिर्फ़ ऑर्डर, डिलीवरी और बिलिंग के लिए होता है। हम इसे किसी और को नहीं बेचते या देते।" en="Your details are used only for orders, delivery and billing. We never sell or share them." /></p>
+    <p><T hi="वेबसाइट को बेहतर बनाने के लिए हम Google Analytics से गुमनाम आँकड़े (जैसे बटन क्लिक) देख सकते हैं।" en="We may use Google Analytics to see anonymous statistics such as button clicks to improve the site." /></p>
+    <p><T hi={`कोई सवाल हो तो ${business.phone} पर संपर्क करें।`} en={`For questions, contact us at ${business.phone}.`} /></p>
+  </div></section>
+</Base>

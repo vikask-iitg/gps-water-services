@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { business } from '../data/site';
+
+// प्रक्रिया की असली स्टेज मालिक से पक्की करें
+const steps = [
+  { icon: 'drop', t: { hi: 'कच्चा पानी', en: 'Raw water' }, d: { hi: 'स्रोत के पानी की जाँच', en: 'Source water checked' } },
+  { icon: 'lab', t: { hi: 'सैंड + कार्बन फ़िल्टर', en: 'Sand + carbon filter' }, d: { hi: 'मिट्टी, गंध और क्लोरीन हटाना', en: 'Removes silt, odour, chlorine' } },
+  { icon: 'shield', t: { hi: 'RO मेम्ब्रेन', en: 'RO membrane' }, d: { hi: 'घुले हुए लवण और भारी धातु हटाना', en: 'Removes dissolved salts & metals' } },
+  { icon: 'sun', t: { hi: 'UV कीटाणु-नाश', en: 'UV disinfection' }, d: { hi: 'बैक्टीरिया और वायरस ख़त्म', en: 'Kills bacteria and viruses' } },
+  { icon: 'ice', t: { hi: 'चिलिंग', en: 'Chilling' }, d: { hi: 'ठंडा करके भंडारण', en: 'Chilled and stored' } },
+  { icon: 'jar', t: { hi: 'साफ़ जार में सील', en: 'Sealed in clean jars' }, d: { hi: 'धुले जार, सीलबंद ढक्कन', en: 'Washed jars, sealed caps' } },
+];
+const certs = [
+  { name: business.certificate, d: { hi: 'टेस्टिंग और कैलिब्रेशन लैब का अंतरराष्ट्रीय मानक — पानी की जाँच इसी स्तर पर।', en: 'International standard for testing and calibration labs; our water testing follows it.' } },
+  { name: 'FSSAI', d: { hi: 'खाद्य सुरक्षा लाइसेंस (नंबर मिलने पर जोड़ा जाएगा)।', en: 'Food safety licence (number to be added).' } },
+  { name: 'BIS (ISI)', d: { hi: 'पैक्ड पीने के पानी का भारतीय मानक (पक्का करें)।', en: 'Indian standard for packaged drinking water (to be confirmed).' } },
+];
+---
+<Base title={{ hi: 'हमारी शुद्धता — RO + UV प्रक्रिया और जाँच', en: 'Our Purity — RO + UV Process & Testing' }} description={{ hi: 'GPS चिल्ड RO वाटर की शुद्धता: मल्टी-स्टेज RO, UV, नियमित जाँच और प्रमाणपत्र।', en: 'How GPS chilled RO water is purified: multi-stage RO, UV, regular testing and certificates.' }}>
+  <PageHero title={{ hi: 'हमारी शुद्धता', en: 'Our Purity' }} lead={{ hi: 'हर जार सील होने से पहले छह कदमों से गुज़रता है — ताकि आपके परिवार को मिले सिर्फ़ शुद्ध पानी।', en: 'Every jar goes through six steps before it is sealed, so your family gets only pure water.' }} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">RO + UV</span><h2><T hi="पानी शुद्ध करने की प्रक्रिया" en="Our purification process" /></h2></div>
+      <div class="process">
+        {steps.map((s) => <div class="card reveal"><div class="p-icon"><Icon name={s.icon} size={28} /></div><h3><T {...s.t} /></h3><p><T {...s.d} /></p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-frost">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow"><T hi="जाँच और प्रमाणपत्र" en="Testing & certificates" /></span><h2><T hi="भरोसा, जो जाँचा गया है" en="Trust that is tested" /></h2></div>
+      <div class="grid grid-3">
+        {certs.map((c) => <div class="card reveal"><div class="cert"><div class="p-icon"><Icon name="shield" size={28} /></div><h3 style="margin:0">{c.name}</h3></div><p class="muted" style="margin:12px 0 0"><T {...c.d} /></p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2><T hi="हमारा प्लांट" en="Our plant" /></h2></div>
+      <div class="grid grid-3">
+        <div class="ph"><div><Icon name="lab" size={40} /><T hi="RO मशीन की फ़ोटो" en="RO machine photo" /></div></div>
+        <div class="ph"><div><Icon name="ice" size={40} /><T hi="बर्फ़ प्लांट की फ़ोटो" en="Ice plant photo" /></div></div>
+        <div class="ph"><div><Icon name="jar" size={40} /><T hi="जार भरने की फ़ोटो" en="Jar filling photo" /></div></div>
+      </div>
+    </div>
+  </section>
+</Base>

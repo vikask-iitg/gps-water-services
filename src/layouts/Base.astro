@@ -1,0 +1,247 @@
+---
+import '../styles/global.css';
+import T from '../components/T.astro';
+import Icon from '../components/Icon.astro';
+import { business, products, waLink } from '../data/site';
+import type { Bi } from '../data/site';
+
+interface Props { title: Bi; description: Bi }
+const { title, description } = Astro.props;
+const full = (t: string, n: string) => `${t} | ${n}`;
+const titleHi = full(title.hi, business.name.hi);
+const titleEn = full(title.en, business.name.en);
+const url = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og-image.jpg', Astro.site).toString();
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const nav = [
+  { href: '/#products', hi: 'उत्पाद', en: 'Products', icon: 'drop' },
+  { href: '/subscription', hi: 'सब्सक्रिप्शन', en: 'Subscription', icon: 'calendar' },
+  { href: '/bulk-orders', hi: 'शादी व बल्क', en: 'Weddings & Bulk', icon: 'gift' },
+  { href: '/purity', hi: 'हमारी शुद्धता', en: 'Our Purity', icon: 'shield' },
+  { href: '/about', hi: 'हमारे बारे में', en: 'About Us', icon: 'users' },
+  { href: '/contact', hi: 'संपर्क, सवाल', en: 'Contact & FAQ', icon: 'phone' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: business.name.en,
+  alternateName: [business.name.hi, business.iceBrand],
+  slogan: business.tagline.en,
+  telephone: business.phone,
+  url: Astro.site?.toString(),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.en,
+    addressLocality: business.locality,
+    addressRegion: business.region,
+    postalCode: business.postalCode,
+    addressCountry: 'IN',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: business.geo.lat, longitude: business.geo.lng },
+  areaServed: ['Kusumkasa', 'Balod'],
+  makesOffer: products.map((p) => ({ '@type': 'Offer', itemOffered: { '@type': 'Product', name: p.name.en } })),
+};
+const waHi = 'नमस्ते GPS वाटर, मुझे ऑर्डर करना है।\nउत्पाद: \nमात्रा: \nपता: \nसमय: ';
+const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \nAddress: \nTime: ';
+---
+<!doctype html>
+<html lang="en" data-lang="en" data-title-hi={titleHi} data-title-en={titleEn}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{titleEn}</title>
+  <meta name="description" content={`${description.en} ${description.hi}`} />
+  <link rel="canonical" href={url} />
+  <link rel="alternate" hreflang="en" href={url} />
+  <link rel="alternate" hreflang="hi" href={`${url}?lang=hi`} />
+  <link rel="alternate" hreflang="x-default" href={url} />
+  <!-- लिंक प्रीव्यू (WhatsApp, Facebook, X) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GPS Water Services" />
+  <meta property="og:title" content={titleEn} />
+  <meta property="og:description" content={description.en} />
+  <meta property="og:url" content={url} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:secure_url" content={ogImage} />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="GPS Chilled R.O. Water — 20 L RO jars, packaged water, ice slabs and water pouches. Call +91 62634 50248" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:locale:alternate" content="hi_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={titleEn} />
+  <meta name="twitter:description" content={description.en} />
+  <meta name="twitter:image" content={ogImage} />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <meta name="theme-color" content="#0B4F8A" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;700&family=Poppins:wght@600;700;800&family=Inter:wght@400;500;700&display=swap" />
+  <script is:inline>
+    // F1: English डिफ़ॉल्ट; चुनी भाषा याद रखें — पेंट से पहले सेट करें ताकि फ़्लैश न हो
+    (function () {
+      var q = new URLSearchParams(location.search).get('lang');
+      var l = q || (function () { try { return localStorage.getItem('lang'); } catch (e) { return null; } })() || 'en';
+      if (l !== 'hi') l = 'en';
+      var h = document.documentElement;
+      h.lang = l; h.dataset.lang = l; h.classList.add('js');
+    })();
+  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  {business.ga4Id && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${business.ga4Id}`}></script>
+      <script is:inline define:vars={{ id: business.ga4Id }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date()); gtag('config', id);
+      </script>
+    </>
+  )}
+</head>
+<body>
+  <a class="skip" href="#main"><T hi="मुख्य सामग्री पर जाएँ" en="Skip to content" /></a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a href="/" class="logo" aria-label={business.name.en}>
+        <span class="logo-mark">GPS</span>
+        <span class="logo-text"><strong><T hi="वाटर सर्विसेज़" en="Water Services" /></strong><small><T hi="चिल्ड आर.ओ. वाटर" en="Chilled R.O. Water" /></small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Main">
+        {nav.map((n) => (
+          <a href={n.href} aria-current={path === n.href || (n.href.startsWith('/products') && path.startsWith('/products')) ? 'page' : undefined}>
+            <span class="nav-ic"><Icon name={n.icon} size={20} /></span>
+            <span class="nav-label"><T hi={n.hi} en={n.en} /></span>
+            <span class="nav-go"><Icon name="arrow" size={18} /></span>
+          </a>
+        ))}
+      </nav>
+      <div class="bar-actions">
+        <button class="lang-btn" type="button" data-lang-toggle aria-label="Change language / भाषा बदलें">
+          <span class="seg seg-hi">हिं</span><span class="seg seg-en" lang="en">EN</span>
+        </button>
+        <a class="btn btn-sm btn-primary hide-sm head-call" href={`tel:${business.phoneRaw}`} data-track="call" aria-label={business.phone} title={business.phone}><Icon name="phone" size={18} /> <span class="ph-num">{business.phone}</span></a>
+        <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" data-menu aria-label="Menu"><Icon name="menu" /></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main"><slot /></main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <a href="/" class="logo logo-light"><span class="logo-mark">GPS</span><span class="logo-text"><strong><T {...business.name} /></strong><small><T {...business.tagline} /></small></span></a>
+        <p class="muted-light"><T hi={`संचालक: ${business.owner.hi}`} en={`Proprietor: ${business.owner.en}`} /></p>
+        <p class="badge-cert"><Icon name="shield" size={18} /> {business.certificate}</p>
+      </div>
+      <div>
+        <h4><T hi="उत्पाद" en="Products" /></h4>
+        <ul>{products.map((p) => <li><a href={`/products/${p.slug}`}><T {...p.name} /></a></li>)}</ul>
+      </div>
+      <div>
+        <h4><T hi="जानकारी" en="Information" /></h4>
+        <ul>{nav.slice(1).map((n) => <li><a href={n.href}><T hi={n.hi} en={n.en} /></a></li>)}<li><a href="/privacy"><T hi="प्राइवेसी पॉलिसी" en="Privacy Policy" /></a></li></ul>
+      </div>
+      <div>
+        <h4><T hi="संपर्क" en="Contact" /></h4>
+        <p class="contact-line"><Icon name="pin" size={18} /> <T {...business.address} /></p>
+        <a class="phone-link phone-link-dark" href={`tel:${business.phoneRaw}`} data-track="call">
+          <span class="phone-ic"><Icon name="phone" size={20} /></span>
+          <span><small><T hi="कॉल / व्हाट्सऐप करें" en="Call / WhatsApp" /></small><strong>{business.phone}</strong></span>
+        </a>
+        <p class="contact-line"><Icon name="clock" size={18} /> <T {...business.hours} /></p>
+      </div>
+    </div>
+    <div class="wrap copy">© {new Date().getFullYear()} <T {...business.name} /></div>
+  </footer>
+
+  <!-- F2: स्टिकी ऑर्डर बार (मोबाइल) -->
+  <div class="sticky-order">
+    <a class="btn btn-wa" href={waLink(waHi)} target="_blank" rel="noopener" data-track="whatsapp" data-wa-msg-hi={waHi} data-wa-msg-en={waEn}><Icon name="whatsapp" size={20} /> <T hi="व्हाट्सऐप पर ऑर्डर" en="Order on WhatsApp" /></a>
+    <a class="btn btn-primary" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> <T hi="कॉल करें" en="Call Now" /></a>
+  </div>
+
+  <script define:vars={{ wa: business.whatsapp }}>
+    const h = document.documentElement;
+    const track = (ev, p) => { if (window.gtag) window.gtag('event', ev, p || {}); };
+
+    function applyLang(l) {
+      h.lang = l; h.dataset.lang = l;
+      document.title = h.dataset['title' + (l === 'en' ? 'En' : 'Hi')];
+      document.querySelectorAll('[data-hi][data-en]').forEach((el) => { el.textContent = el.dataset[l]; });
+      document.querySelectorAll('[data-ph-hi]').forEach((el) => { el.placeholder = el.dataset['ph' + (l === 'en' ? 'En' : 'Hi')]; });
+    }
+    applyLang(h.dataset.lang);
+
+    document.querySelector('[data-lang-toggle]').addEventListener('click', () => {
+      const l = h.dataset.lang === 'hi' ? 'en' : 'hi';
+      try { localStorage.setItem('lang', l); } catch (e) {}
+      const u = new URL(location.href);
+      if (u.searchParams.has('lang')) { u.searchParams.delete('lang'); history.replaceState(null, '', u); }
+      applyLang(l);
+    });
+
+    const header = document.querySelector('.site-header');
+    const onScroll = () => header.classList.toggle('scrolled', scrollY > 8);
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    const menuBtn = document.querySelector('[data-menu]');
+    menuBtn.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    // F3/F4/F5/F6: फ़ॉर्म से भरा हुआ व्हाट्सऐप मैसेज
+    const lblText = (el) => {
+      const lbl = el.closest('label') || el.closest('fieldset');
+      const t = lbl && lbl.querySelector('.lbl .t-' + h.dataset.lang);
+      return t ? t.textContent.trim() : el.name;
+    };
+    document.querySelectorAll('[data-wa-form]').forEach((form) => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (form.querySelector('.hp').value) return; // spam honeypot
+        const l = h.dataset.lang;
+        const lines = ['*GPS ' + form.dataset['kind' + (l === 'en' ? 'En' : 'Hi')] + '*'];
+        const seen = new Set();
+        form.querySelectorAll('input, select, textarea').forEach((el) => {
+          if (el.classList.contains('hp') || !el.name || seen.has(el.name)) return;
+          let v;
+          if (el.type === 'checkbox' || el.type === 'radio') {
+            seen.add(el.name);
+            v = [...form.querySelectorAll(`[name="${el.name}"]:checked`)].map((c) => c.dataset[l] || c.value).join(', ');
+          } else if (el.tagName === 'SELECT') {
+            v = el.selectedOptions[0] ? el.selectedOptions[0].textContent : '';
+          } else v = el.value.trim();
+          if (v) lines.push(lblText(el) + ': ' + v);
+        });
+        track('form_submit', { form: form.dataset.kindEn });
+        window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      });
+    });
+
+    // प्रोडक्ट बटन: चुनी भाषा में मैसेज
+    document.querySelectorAll('a[data-wa-msg-hi]').forEach((a) => {
+      a.addEventListener('click', () => {
+        a.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(a.dataset[h.dataset.lang === 'en' ? 'waMsgEn' : 'waMsgHi']);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('[data-track]');
+      if (a) track(a.dataset.track === 'call' ? 'call_click' : 'whatsapp_click');
+    });
+
+    // स्क्रॉल पर हल्का फ़ेड-इन
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    } else document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  </script>
+</body>
+</html>

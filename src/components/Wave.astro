@@ -1,0 +1,7 @@
+---
+interface Props { flip?: boolean; color?: string }
+const { flip = false, color = 'var(--frost)' } = Astro.props;
+---
+<div class:list={['wave', { flip }]} aria-hidden="true">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill={color} d="M0 30c120 20 240 30 360 20S600 10 720 10s240 30 360 35 240-10 360-25V60H0z"/></svg>
+</div>

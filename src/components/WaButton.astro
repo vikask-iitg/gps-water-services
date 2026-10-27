@@ -1,0 +1,10 @@
+---
+// F3: भरा हुआ व्हाट्सऐप मैसेज (चुनी भाषा में)
+import Icon from './Icon.astro';
+import { waLink } from '../data/site';
+interface Props { hi: string; en: string; class?: string }
+const { hi, en, class: cls = '' } = Astro.props;
+---
+<a class={`btn btn-wa ${cls}`} href={waLink(hi)} target="_blank" rel="noopener" data-track="whatsapp" data-wa-msg-hi={hi} data-wa-msg-en={en}>
+  <Icon name="whatsapp" size={20} /> <slot />
+</a>

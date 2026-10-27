@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { plans } from '../data/site';
+
+const days = [
+  { hi: 'सोम', en: 'Mon' }, { hi: 'मंगल', en: 'Tue' }, { hi: 'बुध', en: 'Wed' }, { hi: 'गुरु', en: 'Thu' },
+  { hi: 'शुक्र', en: 'Fri' }, { hi: 'शनि', en: 'Sat' }, { hi: 'रवि', en: 'Sun' },
+];
+const benefits = [
+  { icon: 'calendar', t: { hi: 'तय दिन, तय समय', en: 'Fixed days & time' }, d: { hi: 'बार-बार ऑर्डर करने की ज़रूरत नहीं।', en: 'No need to reorder every time.' } },
+  { icon: 'drop', t: { hi: 'पानी कभी ख़त्म नहीं', en: 'Never run out' }, d: { hi: 'घर और ऑफ़िस में हमेशा ठंडा पानी।', en: 'Always cold water at home and office.' } },
+  { icon: 'check', t: { hi: 'आसान बदलाव', en: 'Easy changes' }, d: { hi: 'एक व्हाट्सऐप मैसेज से रोकें या बदलें।', en: 'Pause or change with one WhatsApp message.' } },
+  { icon: 'shield', t: { hi: 'मासिक बिल', en: 'Monthly billing' }, d: { hi: 'ऑफ़िस के लिए GST बिल भी।', en: 'GST invoices for offices too.' } },
+];
+---
+<Base title={{ hi: '20 ली. जार साप्ताहिक सब्सक्रिप्शन', en: '20 L Jar Weekly Subscription' }} description={{ hi: 'हफ़्ते में 2, 4 या 7 जार — तय दिन पर डिलीवरी। कुसुमकसा, बालोद।', en: '2, 4 or 7 jars a week, delivered on fixed days in Kusumkasa and Balod.' }}>
+  <PageHero title={{ hi: 'जार सब्सक्रिप्शन', en: 'Jar Subscription' }} lead={{ hi: 'एक बार बुक करें — हर हफ़्ते तय दिन पर ठंडा 20 ली. RO जार आपके दरवाज़े पर।', en: 'Book once and get a chilled 20 L RO jar at your door on fixed days every week.' }} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow"><T hi="प्लान चुनें" en="Choose a plan" /></span><h2><T hi="हफ़्ते में कितने जार?" en="How many jars a week?" /></h2></div>
+      <div class="grid grid-3">
+        {plans.map((pl) => (
+          <div class:list={['card plan reveal', { popular: pl.popular }]}>
+            {pl.popular && <span class="ribbon"><T hi="सबसे लोकप्रिय" en="Most popular" /></span>}
+            <div class="num">{pl.jars}</div>
+            <h3><T hi="जार / हफ़्ता" en="jars / week" /></h3>
+            <p class="muted"><T hi={pl.jars === 7 ? 'रोज़ एक जार — ऑफ़िस और होटल के लिए' : pl.jars === 4 ? 'बड़े परिवार के लिए' : 'छोटे परिवार के लिए'} en={pl.jars === 7 ? 'One jar daily, for offices and hotels' : pl.jars === 4 ? 'For larger families' : 'For small families'} /></p>
+            <a class="btn btn-ghost" href="#book" data-plan={pl.jars}><T hi="यह प्लान चुनें" en="Choose plan" /></a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-frost">
+    <div class="wrap two-col">
+      <div>
+        <h2><T hi="सब्सक्रिप्शन के फ़ायदे" en="Subscription benefits" /></h2>
+        <div class="grid" style="margin-top:20px">
+          {benefits.map((b) => <div class="feature"><div class="p-icon"><Icon name={b.icon} size={26} /></div><div><h3><T {...b.t} /></h3><p><T {...b.d} /></p></div></div>)}
+        </div>
+      </div>
+      <form class="card form" id="book" data-wa-form data-kind-hi="जार सब्सक्रिप्शन बुकिंग" data-kind-en="Jar subscription booking">
+        <h3><T hi="सब्सक्रिप्शन बुक करें" en="Book a subscription" /></h3>
+        <div class="grid2">
+          <label><span class="lbl"><T hi="नाम" en="Name" /></span><input name="name" required autocomplete="name" /></label>
+          <label><span class="lbl"><T hi="फ़ोन" en="Phone" /></span><input name="phone" type="tel" required pattern="[0-9+ ]{10,14}" autocomplete="tel" /></label>
+        </div>
+        <label><span class="lbl"><T hi="पता / गाँव" en="Address / Village" /></span><input name="address" required /></label>
+        <label><span class="lbl"><T hi="हफ़्ते में जार" en="Jars per week" /></span>
+          <select name="jars" id="jars">{plans.map((pl) => <option value={pl.jars} selected={pl.popular}>{pl.jars}</option>)}</select>
+        </label>
+        <label><span class="lbl"><T hi="जार का प्रकार" en="Jar type" /></span>
+          <select name="jartype">
+            <option data-hi="नीला 20 ली. बोतल जार" data-en="Blue 20 L bottle jar">Blue 20 L bottle jar</option>
+            <option data-hi="इंसुलेटेड चिल्ड कैंपर" data-en="Insulated chilled camper">Insulated chilled camper</option>
+          </select>
+        </label>
+        <fieldset>
+          <legend class="lbl"><T hi="किन दिन डिलीवरी?" en="Delivery days" /></legend>
+          <div class="chips-input">
+            {days.map((d) => <label><input type="checkbox" name="days" value={d.en} data-hi={d.hi} data-en={d.en} /><span><T {...d} /></span></label>)}
+          </div>
+        </fieldset>
+        <label><span class="lbl"><T hi="शुरुआती तारीख़" en="Start date" /></span><input name="start" type="date" required /></label>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="btn btn-wa block" type="submit"><T hi="व्हाट्सऐप पर बुक करें" en="Book on WhatsApp" /></button>
+        <p class="form-note"><T hi="मालिक व्हाट्सऐप पर आपकी बुकिंग पक्की करेंगे।" en="The owner will confirm your booking on WhatsApp." /></p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll<HTMLAnchorElement>('[data-plan]').forEach((a) =>
+      a.addEventListener('click', () => { (document.getElementById('jars') as HTMLSelectElement).value = a.dataset.plan!; }));
+  </script>
+</Base>

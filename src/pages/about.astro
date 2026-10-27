@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { business } from '../data/site';
+---
+<Base title={{ hi: 'हमारे बारे में — विनोद ठाकुर और टीम', en: 'About Us — Vinod Thakur & Team' }} description={{ hi: 'GPS वाटर सर्विसेज़, कुसुमकसा — शुद्ध और गुणवत्ता का प्रतीक।', en: 'GPS Water Services, Kusumkasa — a symbol of purity and quality.' }}>
+  <PageHero title={{ hi: 'हमारे बारे में', en: 'About Us' }} lead={business.tagline} />
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <span class="eyebrow"><T hi="हमारी कहानी" en="Our story" /></span>
+        <h2><T hi="कुसुमकसा का अपना शुद्ध पानी" en="Kusumkasa’s own pure water" /></h2>
+        <p><T hi="GPS वाटर सर्विसेज़ की शुरुआत एक सीधे से वादे से हुई — हमारे इलाक़े के हर घर, दुकान और कार्यक्रम तक साफ़, ठंडा और भरोसेमंद पानी पहुँचाना।" en="GPS Water Services began with a simple promise: clean, cold, reliable water for every home, shop and event in our area." /></p>
+        <p><T hi="आज हम 20 ली. RO चिल्ड जार, पैक्ड पानी, GPS Pure Ice बर्फ़ सिल्ली और पानी पाउच की सप्लाई कुसुमकसा, बालोद और आसपास के गाँवों में करते हैं — होटल, ऑफ़िस, दुकान, शादी समारोह, बर्थडे और मांगलिक कार्यक्रमों तक।" en="Today we supply 20 L RO chilled jars, packaged water, GPS Pure Ice slabs and water pouches across Kusumkasa, Balod and nearby villages, serving hotels, offices, shops, weddings, birthdays and ceremonies." /></p>
+        <p class="muted"><T hi="(कब शुरू हुआ और कितने ग्राहक — मालिक से मिलने पर जोड़ा जाएगा।)" en="(Founding year and customer count to be added.)" /></p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="ph" style="aspect-ratio:1;margin-bottom:16px"><div><Icon name="users" size={48} /><T hi="विनोद ठाकुर की फ़ोटो" en="Photo of Vinod Thakur" /></div></div>
+        <h3 style="margin:0"><T {...business.owner} /></h3>
+        <p class="muted"><T hi="संचालक" en="Proprietor" /></p>
+        <a class="btn btn-primary block" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> {business.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-frost">
+    <div class="wrap">
+      <div class="section-head"><h2><T hi="हमारी टीम और गाड़ियाँ" en="Our team & delivery fleet" /></h2></div>
+      <div class="grid grid-3">
+        <div class="ph"><div><Icon name="users" size={40} /><T hi="टीम की फ़ोटो" en="Team photo" /></div></div>
+        <div class="ph"><div><Icon name="truck" size={40} /><T hi="डिलीवरी गाड़ी" en="Delivery vehicle" /></div></div>
+        <div class="ph"><div><Icon name="drop" size={40} /><T hi="प्लांट" en="Plant" /></div></div>
+      </div>
+    </div>
+  </section>
+</Base>

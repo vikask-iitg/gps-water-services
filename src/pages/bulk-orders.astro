@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { products } from '../data/site';
+
+const events = [
+  { icon: 'gift', t: { hi: 'शादी समारोह', en: 'Weddings' }, d: { hi: 'मेहमानों के हिसाब से बोतल, पाउच, जार और बर्फ़।', en: 'Bottles, pouches, jars and ice sized to your guest list.' } },
+  { icon: 'star', t: { hi: 'बर्थडे और मांगलिक कार्यक्रम', en: 'Birthdays & ceremonies' }, d: { hi: 'छोटे-बड़े हर कार्यक्रम के लिए समय पर सप्लाई।', en: 'On-time supply for events of every size.' } },
+  { icon: 'users', t: { hi: 'सभा और आयोजन', en: 'Gatherings & meetings' }, d: { hi: 'भीड़ के लिए सस्ते सीलबंद पाउच।', en: 'Affordable sealed pouches for crowds.' } },
+  { icon: 'truck', t: { hi: 'होटल, ढाबा, दुकान', en: 'Hotels, dhabas, shops' }, d: { hi: 'थोक रेट, रोज़ की तय सप्लाई।', en: 'Wholesale rates with fixed daily supply.' } },
+  { icon: 'ice', t: { hi: 'मछली/मीट और जूस ठेले', en: 'Fish/meat & juice carts' }, d: { hi: 'सुबह जल्दी बर्फ़ सिल्ली की डिलीवरी।', en: 'Early-morning ice slab delivery.' } },
+  { icon: 'bottle', t: { hi: 'कस्टम लेबल बोतल', en: 'Custom-label bottles' }, d: { hi: 'कार्यक्रम के नाम वाली बोतलें।', en: 'Bottles printed with your event name.' } },
+];
+const eventTypes = [
+  { hi: 'शादी', en: 'Wedding' }, { hi: 'बर्थडे', en: 'Birthday' }, { hi: 'मांगलिक कार्यक्रम', en: 'Ceremony' },
+  { hi: 'सभा', en: 'Gathering' }, { hi: 'होटल / दुकान', en: 'Hotel / Shop' }, { hi: 'अन्य', en: 'Other' },
+];
+---
+<Base title={{ hi: 'शादी व बल्क ऑर्डर — पानी, पाउच, बर्फ़', en: 'Wedding & Bulk Orders — Water, Pouches, Ice' }} description={{ hi: 'शादी, बर्थडे, मांगलिक कार्यक्रम, होटल और दुकान के लिए बल्क पानी, पाउच और बर्फ़ का कोटेशन।', en: 'Bulk quotes for water, pouches and ice for weddings, events, hotels and shops.' }}>
+  <PageHero title={{ hi: 'शादी व बल्क ऑर्डर', en: 'Weddings & Bulk Orders' }} lead={{ hi: 'तारीख़ और मेहमानों की संख्या बताइए — हम सही मात्रा और रेट का कोटेशन भेजेंगे, और समय पर पहुँचाएँगे।', en: 'Share the date and guest count. We send a quote with the right quantity and rate, and deliver on time.' }} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-3">
+        {events.map((e) => <div class="card feature reveal"><div class="p-icon"><Icon name={e.icon} size={26} /></div><div><h3><T {...e.t} /></h3><p><T {...e.d} /></p></div></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-frost">
+    <div class="wrap two-col">
+      <div>
+        <span class="eyebrow"><T hi="कोटेशन" en="Quotation" /></span>
+        <h2><T hi="मुफ़्त कोटेशन माँगें" en="Get a free quote" /></h2>
+        <p class="muted"><T hi="कम से कम 3–5 दिन पहले बताएँ, ताकि स्टॉक और गाड़ी पक्की हो सके।" en="Tell us at least 3–5 days ahead so stock and delivery can be confirmed." /></p>
+        <ul class="check-list" style="margin-top:16px">
+          <li><Icon name="check" size={20} /><T hi="मेहमानों के हिसाब से मात्रा का सुझाव" en="Quantity suggested by guest count" /></li>
+          <li><Icon name="check" size={20} /><T hi="थोक रेट" en="Wholesale rates" /></li>
+          <li><Icon name="check" size={20} /><T hi="कार्यक्रम स्थल पर समय पर डिलीवरी" en="On-time delivery to the venue" /></li>
+        </ul>
+      </div>
+      <form class="card form" data-wa-form data-kind-hi="कोटेशन अनुरोध" data-kind-en="Quotation request">
+        <h3><T hi="कार्यक्रम की जानकारी" en="Event details" /></h3>
+        <div class="grid2">
+          <label><span class="lbl"><T hi="नाम" en="Name" /></span><input name="name" required autocomplete="name" /></label>
+          <label><span class="lbl"><T hi="फ़ोन" en="Phone" /></span><input name="phone" type="tel" required pattern="[0-9+ ]{10,14}" autocomplete="tel" /></label>
+        </div>
+        <div class="grid2">
+          <label><span class="lbl"><T hi="कार्यक्रम का प्रकार" en="Event type" /></span>
+            <select name="event">{eventTypes.map((e) => <option data-hi={e.hi} data-en={e.en}>{e.en}</option>)}</select>
+          </label>
+          <label><span class="lbl"><T hi="तारीख़" en="Date" /></span><input name="date" type="date" required /></label>
+        </div>
+        <div class="grid2">
+          <label><span class="lbl"><T hi="मेहमानों की संख्या" en="Number of guests" /></span><input name="guests" type="number" min="1" required /></label>
+          <label><span class="lbl"><T hi="स्थान / गाँव" en="Venue / Village" /></span><input name="venue" required /></label>
+        </div>
+        <fieldset>
+          <legend class="lbl"><T hi="कौन से उत्पाद?" en="Which products?" /></legend>
+          <div class="chips-input">
+            {products.map((p) => <label><input type="checkbox" name="products" value={p.name.en} data-hi={p.name.hi} data-en={p.name.en} /><span><T {...p.name} /></span></label>)}
+          </div>
+        </fieldset>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="btn btn-wa block" type="submit"><T hi="व्हाट्सऐप पर कोटेशन माँगें" en="Request quote on WhatsApp" /></button>
+      </form>
+    </div>
+  </section>
+</Base>
