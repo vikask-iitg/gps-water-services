@@ -691,3 +691,7 @@ body.modal-open { overflow: hidden; }
   .hero-home .trust small { font-size: .66rem; margin-top: 1px; }
   .hero-home .trust small::before { content: none; }
 }
+@media (max-width: 599px) {
+  .hero-home .hero-art { max-width: 185px; margin: 0 auto 2px; }
+  .hero-home .hero-inner { padding-bottom: 38px; }
+}
