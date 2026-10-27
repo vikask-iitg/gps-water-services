@@ -561,3 +561,15 @@ body.modal-open { overflow: hidden; }
   .order-modal[open] { animation: omIn .25s ease-out; }
   .order-modal .form { padding-bottom: 16px; }
 }
+
+/* स्टिकी बार: हीरो पर छिपा, स्क्रॉल पर दिखे */
+.sticky-order { transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s; }
+.sticky-order.is-hidden { transform: translateY(130%); opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .sticky-order { transition: none; } }
+
+/* मोबाइल बॉटम बार: WhatsApp की जगह Order Now */
+.sticky-order-btn { display: none; }
+@media (max-width: 899px) {
+  .sticky-order .btn-wa { display: none; }
+  .sticky-order .sticky-order-btn { display: inline-flex; }
+}

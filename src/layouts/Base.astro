@@ -178,6 +178,7 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
 
   <!-- F2: स्टिकी ऑर्डर बार (मोबाइल) -->
   <div class="sticky-order">
+    <button class="btn btn-order sticky-order-btn" type="button" data-order-open><Icon name="truck" size={20} /> <T hi="अभी ऑर्डर करें" en="Order Now" /></button>
     <a class="btn btn-wa" href={waLink(waHi)} target="_blank" rel="noopener" data-track="whatsapp" data-wa-msg-hi={waHi} data-wa-msg-en={waEn}><Icon name="whatsapp" size={20} /> <span class="lbl-long"><T hi="व्हाट्सऐप पर ऑर्डर" en="Order on WhatsApp" /></span><span class="lbl-short"><T hi="व्हाट्सऐप" en="WhatsApp" /></span></a>
     <a class="btn btn-primary" href={`tel:${business.phoneRaw}`} data-track="call"><Icon name="phone" size={20} /> <T hi="कॉल करें" en="Call Now" /></a>
   </div>
@@ -249,6 +250,14 @@ const waEn = 'Hello GPS Water, I want to place an order.\nProduct: \nQuantity: \
         a.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(a.dataset[h.dataset.lang === 'en' ? 'waMsgEn' : 'waMsgHi']);
       });
     });
+
+    // होम पेज: हीरो दिखते समय नीचे का ऑर्डर बार छिपाएँ
+    const heroHome = document.querySelector('.hero-home');
+    const stickyBar = document.querySelector('.sticky-order');
+    if (heroHome && stickyBar && 'IntersectionObserver' in window) {
+      stickyBar.classList.add('is-hidden');
+      new IntersectionObserver(([en]) => stickyBar.classList.toggle('is-hidden', en.isIntersecting)).observe(heroHome);
+    }
 
     // ऑर्डर पॉपअप
     const modal = document.getElementById('order-modal');
